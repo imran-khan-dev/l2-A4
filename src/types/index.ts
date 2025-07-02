@@ -10,7 +10,7 @@ export interface Book {
 }
 
 export interface Borrow {
-  bookId: string;
+  book: string;
   quantity: number;
   dueDate: string;
 }
