@@ -11,12 +11,20 @@ const BookListPage = () => {
 
   const books = data?.data ?? [];
 
-  const handleDelete = (id: string) => {
-    if (confirm("Are you sure you want to delete this book?")) {
-      deleteBook(id);
+  const handleDelete = async (id: string) => {
+    const confirm = window.confirm(
+      "Are you sure you want to delete this book?"
+    );
+    if (!confirm) return;
+
+    try {
+      await deleteBook(id).unwrap();
+      alert("Book deleted successfully.");
+    } catch (err) {
+      alert("Failed to delete book.");
+      console.error(err);
     }
   };
-
   if (isLoading) return <p>Loading books...</p>;
   if (isError) return <p>Failed to load books.</p>;
 
@@ -47,7 +55,7 @@ const BookListPage = () => {
                 <td className="px-4 py-2 border">
                   {book.available ? "Yes" : "No"}
                 </td>
-                <td className="px-4 py-2 border space-x-2">
+                <td className="px-4 py-2 border space-x-2 md:space-y-0">
                   <Link
                     to={`/edit-book/${book._id}`}
                     className="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded"
@@ -56,7 +64,7 @@ const BookListPage = () => {
                   </Link>
                   <button
                     onClick={() => handleDelete(book._id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded"
+                    className="bg-red-500 hover:bg-red-600 my-2 md:my-0 text-white px-2 py-1 rounded"
                   >
                     Delete
                   </button>

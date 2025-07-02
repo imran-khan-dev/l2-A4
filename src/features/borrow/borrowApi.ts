@@ -21,7 +21,12 @@ export const borrowApi = createApi({
     }),
 
     getBorrowSummary: builder.query<BorrowSummary[], void>({
-      query: () => "/borrow-summary",
+      query: () => "/borrow",
+      transformResponse: (response: {
+        success: boolean;
+        message: string;
+        data: BorrowSummary[];
+      }) => response.data,
       providesTags: ["Borrow"],
     }),
   }),

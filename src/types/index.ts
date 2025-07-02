@@ -16,7 +16,9 @@ export interface Borrow {
 }
 
 export interface BorrowSummary {
-  title: string;
-  isbn: string;
   totalQuantity: number;
+  book: {
+    title: string;
+    isbn: string;
+  };
 }
