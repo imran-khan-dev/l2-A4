@@ -1,40 +1,42 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { Book } from '../../types';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type { Book } from "../../types";
 
 export const bookApi = createApi({
-  reducerPath: 'bookApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api/v1' }),
-  tagTypes: ['Book'],
+  reducerPath: "bookApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://library-management-6h6r.onrender.com/api",
+  }),
+  tagTypes: ["Book"],
   endpoints: (builder) => ({
-    getBooks: builder.query<Book[], void>({
-      query: () => '/books',
-      providesTags: ['Book'],
+    getBooks: builder.query<{ data: Book[] }, void>({
+      query: () => "/books",
+      providesTags: ["Book"],
     }),
     getBook: builder.query<Book, string>({
       query: (id) => `/books/${id}`,
     }),
     createBook: builder.mutation<void, Partial<Book>>({
       query: (body) => ({
-        url: '/books',
-        method: 'POST',
+        url: "/books",
+        method: "POST",
         body,
       }),
-      invalidatesTags: ['Book'],
+      invalidatesTags: ["Book"],
     }),
     updateBook: builder.mutation<void, { id: string; data: Partial<Book> }>({
       query: ({ id, data }) => ({
         url: `/books/${id}`,
-        method: 'PATCH',
+        method: "PATCH",
         body: data,
       }),
-      invalidatesTags: ['Book'],
+      invalidatesTags: ["Book"],
     }),
     deleteBook: builder.mutation<void, string>({
       query: (id) => ({
         url: `/books/${id}`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
-      invalidatesTags: ['Book'],
+      invalidatesTags: ["Book"],
     }),
   }),
 });
