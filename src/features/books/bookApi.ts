@@ -12,10 +12,14 @@ export const bookApi = createApi({
       query: () => "/books",
       providesTags: ["Book"],
     }),
-    getBook: builder.query<Book, string>({
+    getBook: builder.query<{ data: Book }, string>({
       query: (id) => `/books/${id}`,
+      providesTags: ["Book"],
     }),
-    createBook: builder.mutation<void, Partial<Book>>({
+    createBook: builder.mutation<
+      { success: boolean; data: Book },
+      Partial<Book>
+    >({
       query: (body) => ({
         url: "/books",
         method: "POST",
@@ -23,11 +27,14 @@ export const bookApi = createApi({
       }),
       invalidatesTags: ["Book"],
     }),
-    updateBook: builder.mutation<void, { id: string; data: Partial<Book> }>({
-      query: ({ id, data }) => ({
+    updateBook: builder.mutation<
+      { success: boolean; data: Book },
+      { id: string; body: Partial<Book> }
+    >({
+      query: ({ id, body }) => ({
         url: `/books/${id}`,
-        method: "PATCH",
-        body: data,
+        method: "PUT",
+        body,
       }),
       invalidatesTags: ["Book"],
     }),
