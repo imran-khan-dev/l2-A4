@@ -6,9 +6,9 @@ A minimalist, fully functional Library Management System frontend built using **
 
 ## Live Site
 
-🔗 [Live Frontend App](https://your-frontend-deployment-link.com)
+🔗 [Live Frontend App](https://libraryclient.vercel.app/books)
 
-🌐 [Live Backend API](https://your-backend-api-link.com)
+🌐 [Live Backend API](https://library-management-6h6r.onrender.com)
 
 ---
 
@@ -76,7 +76,7 @@ npm install
 ### 3. Configure environment variables (optional)
 
 // src/features/bookApi.ts
-baseUrl: 'https://your-backend-url.com/api',
+baseUrl: 'https://library-management-6h6r.onrender.com',
 
 ### 4. Start the development server
 
